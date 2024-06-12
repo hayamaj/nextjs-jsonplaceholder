@@ -18,7 +18,6 @@ type Post = {
     name: string;
   };
   
-  // Define the pastel colors and getRandomColor function here
   const pastelColors = [
     'f4cccc', 'fce5cd', 'fff2cc', 'd9ead3', 'd0e0e3', 'cfe2f3', 'd9d2e9', 'ead1dc'
   ];
