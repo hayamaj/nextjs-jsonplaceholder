@@ -1,4 +1,4 @@
-"use client"; 
+
 
 import { fetchUser, fetchUserPosts } from '../../../services/api';
 import Link from 'next/link';
@@ -34,6 +34,9 @@ type Params = {
     const posts: Post[] = await fetchUserPosts(parseInt(params.id));
     const profilePicColor = getRandomColor();
     const profilePicUrl = `https://ui-avatars.com/api/?name=${user.name}&background=${profilePicColor}&size=128`;
+
+    console.log('profilePicColor:', profilePicColor); // Debugging step
+    console.log('profilePicUrl:', profilePicUrl); // Debugging step
   
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">

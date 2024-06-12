@@ -49,7 +49,7 @@ type Post = {
       fetchData();
     }, [params.id]);
   
-    if (!post || !user) return <div>Loading...</div>;
+    if (!post || !user) return <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">Loading...</div>;
   
     const profilePic = profilePicUrl || `https://ui-avatars.com/api/?name=${user.name}&background=${getRandomColor()}&size=64`;
   
