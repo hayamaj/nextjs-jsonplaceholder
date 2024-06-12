@@ -17,7 +17,8 @@ type Post = {
     id: number;
     name: string;
   };
-
+  
+  // Define the pastel colors and getRandomColor function here
   const pastelColors = [
     'f4cccc', 'fce5cd', 'fff2cc', 'd9ead3', 'd0e0e3', 'cfe2f3', 'd9d2e9', 'ead1dc'
   ];
@@ -31,7 +32,6 @@ type Post = {
     const [user, setUser] = useState<User | null>(null);
     const searchParams = useSearchParams();
     const profilePicUrl = searchParams.get('profilePicUrl');
-    
   
     useEffect(() => {
       const fetchData = async () => {
@@ -50,13 +50,13 @@ type Post = {
       fetchData();
     }, [params.id]);
   
-    if (!post || !user) return <div className="min-h-screen bg-black text-white flex items-center justify-center">Loading...</div>;
+    if (!post || !user) return <div>Loading...</div>;
   
     const profilePic = profilePicUrl || `https://ui-avatars.com/api/?name=${user.name}&background=${getRandomColor()}&size=64`;
   
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        <div className="bg-[#1c1c1e] m-8 p-8 shadow-xl rounded-lg p-6 w-full sm:max-w-2xl">
+      <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">
+        <div className="bg-[#1c1c1e] shadow-xl rounded-lg p-6 w-full max-w-2xl">
           <div className="flex items-center justify-between mb-4">
             <Link href={`/users/${post.userId}`} className="text-blue-400 hover:text-blue-600 font-medium flex items-center">
               <ArrowLeftIcon className="w-5 h-5 mr-1" />
@@ -67,9 +67,9 @@ type Post = {
             <img
               src={profilePic}
               alt={`${user.name}'s profile picture`}
-              className="w-8 h-8 rounded-full mr-2"
+              className="w-12 h-12 rounded-full mr-2"
             />
-            <h1 className="text-lg font-semibold">{user.name}</h1>
+            <h1 className="text-xl font-semibold">{user.name}</h1>
           </div>
           <h1 className="text-2xl font-semibold mb-4">{post.title}</h1>
           <p className="text-gray-300 mb-4">{post.body}</p>
