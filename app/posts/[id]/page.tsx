@@ -25,12 +25,14 @@ type Post = {
     return pastelColors[Math.floor(Math.random() * pastelColors.length)];
   };
   
+  const getProfilePicUrl = (userName: string, profilePicUrl?: string) => {
+    const color = getRandomColor();
+    return profilePicUrl || `https://ui-avatars.com/api/?name=${userName}&background=${color}&size=64`;
+  };
+  
   export default function Post({ params }: { params: { id: string } }) {
     const [post, setPost] = useState<Post | null>(null);
     const [user, setUser] = useState<User | null>(null);
-    const getRandomColor = () => {
-        return pastelColors[Math.floor(Math.random() * pastelColors.length)];
-      };
     const searchParams = useSearchParams();
     const profilePicUrl = searchParams.get('profilePicUrl');
   
@@ -53,8 +55,8 @@ type Post = {
   
     if (!post || !user) return <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">Loading...</div>;
   
-    const profilePic = profilePicUrl || `https://ui-avatars.com/api/?name=${user.name}&background=${getRandomColor()}&size=64`;
-  
+    const profilePic = getProfilePicUrl(user.name, profilePicUrl || undefined);
+
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">
         <div className="bg-[#1c1c1e] shadow-xl rounded-lg p-6 w-full max-w-2xl">
