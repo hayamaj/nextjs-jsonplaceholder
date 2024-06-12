@@ -1,34 +1,70 @@
+"use client"; 
+
+import { ArrowLeftIcon } from '@heroicons/react/solid';
 import axios from 'axios';
 import Link from 'next/link';
-
-type Params = {
-  params: {
-    id: string;
-  };
-};
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 type Post = {
-  id: number;
-  title: string;
-  body: string;
-  userId: number;
-};
-
-export default async function Post({ params }: Params) {
-  const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${params.id}`);
-  const post: Post = response.data;
-
-  return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-2xl">
-        <h1 className="text-2xl font-semibold mb-4">{post.title}</h1>
-        <p className="text-gray-700 mb-4">{post.body}</p>
-        <div className="mt-4">
-          <Link href={`/users/${post.userId}`} className="text-blue-600 hover:text-blue-800 font-medium">
-            Back to User
-          </Link>
+    id: number;
+    title: string;
+    body: string;
+    userId: number;
+  };
+  
+  type User = {
+    id: number;
+    name: string;
+  };
+  
+  export default function Post({ params }: { params: { id: string } }) {
+    const [post, setPost] = useState<Post | null>(null);
+    const [user, setUser] = useState<User | null>(null);
+    const searchParams = useSearchParams();
+    const profilePicUrl = searchParams.get('profilePicUrl');
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const postResponse = await axios.get(`https://jsonplaceholder.typicode.com/posts/${params.id}`);
+          const fetchedPost: Post = postResponse.data;
+          setPost(fetchedPost);
+          const userResponse = await axios.get(`https://jsonplaceholder.typicode.com/users/${fetchedPost.userId}`);
+          const fetchedUser: User = userResponse.data;
+          setUser(fetchedUser);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+  
+      fetchData();
+    }, [params.id]);
+  
+    if (!post || !user) return <div className="min-h-screen bg-black text-white flex items-center justify-center">Loading...</div>;
+  
+    const profilePic = profilePicUrl || `https://ui-avatars.com/api/?name=${user.name}&background=${getRandomColor()}&size=64`;
+  
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="bg-[#1c1c1e] m-8 p-8 shadow-xl rounded-lg p-6 w-full sm:max-w-2xl">
+          <div className="flex items-center justify-between mb-4">
+            <Link href={`/users/${post.userId}`} className="text-blue-400 hover:text-blue-600 font-medium flex items-center">
+              <ArrowLeftIcon className="w-5 h-5 mr-1" />
+              Back to User
+            </Link>
+          </div>
+          <div className="flex items-center mb-4">
+            <img
+              src={profilePic}
+              alt={`${user.name}'s profile picture`}
+              className="w-8 h-8 rounded-full mr-2"
+            />
+            <h1 className="text-lg font-semibold">{user.name}</h1>
+          </div>
+          <h1 className="text-2xl font-semibold mb-4">{post.title}</h1>
+          <p className="text-gray-300 mb-4">{post.body}</p>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
