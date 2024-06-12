@@ -1,4 +1,3 @@
-"use client"; 
 
 import axios from 'axios';
 import { ArrowLeftIcon } from '@heroicons/react/solid';
