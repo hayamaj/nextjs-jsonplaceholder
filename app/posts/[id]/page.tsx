@@ -27,7 +27,7 @@ type Post = {
   
   const getProfilePicUrl = (userName: string, profilePicUrl?: string) => {
     const color = getRandomColor();
-    return profilePicUrl || `https://ui-avatars.com/api/?name=${userName}&background=${color}&size=64`;
+    return profilePicUrl || `https://ui-avatars.com/api/?name=${userName}&background=${'d9ead3'}&size=64`;
   };
   
   export default function Post({ params }: { params: { id: string } }) {
