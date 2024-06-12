@@ -21,12 +21,8 @@ type Post = {
     'f4cccc', 'fce5cd', 'fff2cc', 'd9ead3', 'd0e0e3', 'cfe2f3', 'd9d2e9', 'ead1dc'
   ];
   
-  const getRandomColor = () => {
-    return pastelColors[Math.floor(Math.random() * pastelColors.length)];
-  };
   
   const getProfilePicUrl = (userName: string, profilePicUrl?: string) => {
-    const color = getRandomColor();
     return profilePicUrl || `https://ui-avatars.com/api/?name=${userName}&background=${'d9ead3'}&size=64`;
   };
   

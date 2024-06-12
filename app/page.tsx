@@ -10,10 +10,6 @@ const pastelColors = [
   'f4cccc', 'fce5cd', 'fff2cc', 'd9ead3', 'd0e0e3', 'cfe2f3', 'd9d2e9', 'ead1dc'
 ];
 
-const getRandomColor = () => {
-  return pastelColors[Math.floor(Math.random() * pastelColors.length)];
-};
-
 export default async function Home() {
   const users: User[] = await fetchUsers();
 
