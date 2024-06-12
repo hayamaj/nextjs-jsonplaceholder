@@ -1,4 +1,4 @@
-
+"use client";
 import axios from 'axios';
 import { ArrowLeftIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
@@ -28,6 +28,9 @@ type Post = {
   export default function Post({ params }: { params: { id: string } }) {
     const [post, setPost] = useState<Post | null>(null);
     const [user, setUser] = useState<User | null>(null);
+    const getRandomColor = () => {
+        return pastelColors[Math.floor(Math.random() * pastelColors.length)];
+      };
     const searchParams = useSearchParams();
     const profilePicUrl = searchParams.get('profilePicUrl');
   
