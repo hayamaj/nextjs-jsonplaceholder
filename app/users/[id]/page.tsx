@@ -21,13 +21,10 @@ type Params = {
     userId: number;
   };
   
-  const pastelColors = [
-    'f4cccc', 'fce5cd', 'fff2cc', 'd9ead3', 'd0e0e3', 'cfe2f3', 'd9d2e9', 'ead1dc'
-  ];
   
   
   const getProfilePicUrl = (userName: string, profilePicUrl?: string) => {
-    return profilePicUrl || `https://ui-avatars.com/api/?name=${userName}&background=${'d9ead3'}&size=128`;
+    return profilePicUrl || `https://ui-avatars.com/api/?name=${userName}&background=${'cfe2f3'}&size=128`;
   };
   
   export default async function User({ params }: Params) {
