@@ -1,7 +1,7 @@
 "use client"; 
 
-import { ArrowLeftIcon } from '@heroicons/react/solid';
 import axios from 'axios';
+import { ArrowLeftIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -17,12 +17,21 @@ type Post = {
     id: number;
     name: string;
   };
+
+  const pastelColors = [
+    'f4cccc', 'fce5cd', 'fff2cc', 'd9ead3', 'd0e0e3', 'cfe2f3', 'd9d2e9', 'ead1dc'
+  ];
+  
+  const getRandomColor = () => {
+    return pastelColors[Math.floor(Math.random() * pastelColors.length)];
+  };
   
   export default function Post({ params }: { params: { id: string } }) {
     const [post, setPost] = useState<Post | null>(null);
     const [user, setUser] = useState<User | null>(null);
     const searchParams = useSearchParams();
     const profilePicUrl = searchParams.get('profilePicUrl');
+    
   
     useEffect(() => {
       const fetchData = async () => {
